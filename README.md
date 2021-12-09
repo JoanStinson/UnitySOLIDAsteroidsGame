@@ -53,13 +53,18 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        int damageAmount = 1;
         if (collision.collider.TryGetComponent<Asteroid>(out var asteroid))
         {
-            TakeDamage(asteroid.Damage);
+            TakeDamage(damageAmount);
         }
         else if (collision.collider.TryGetComponent<Enemy>(out var enemy))
         {
-            TakeDamage(enemy.Damage);
+            TakeDamage(damageAmount * 5);
+        }
+        else if (collision.collider.TryGetComponent<Npc>(out var npc))
+        {
+            TakeDamage(0);
         }
     }
 
@@ -183,13 +188,18 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        int damageAmount = 1;
         if (collision.collider.TryGetComponent<Asteroid>(out var asteroid))
         {
-            TakeDamage(asteroid.Damage);
+            TakeDamage(damageAmount);
         }
         else if (collision.collider.TryGetComponent<Enemy>(out var enemy))
         {
-            TakeDamage(enemy.Damage);
+            TakeDamage(damageAmount * 5);
+        }
+        else if (collision.collider.TryGetComponent<Npc>(out var npc))
+        {
+            TakeDamage(0);
         }
     }
 
@@ -381,9 +391,92 @@ public class MissileLauncher : MonoBehaviour, ILauncher
 Derived classes must be substitutable for their base classes.
 
 ### ❌ Wrong Way
-
+```csharp
+[RequireComponent(typeof(Collider2D))]
+public class PlayerHealth : MonoBehaviour
+{
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        int damageAmount = 1;
+        if (collision.collider.TryGetComponent<Asteroid>(out var asteroid))
+        {
+            TakeDamage(damageAmount);
+        }
+        else if (collision.collider.TryGetComponent<Enemy>(out var enemy))
+        {
+            TakeDamage(damageAmount * 5);
+        }
+        // the list goes on...
+    }
+}
+```
 ### ✔️ Right Way
+```csharp
+[RequireComponent(typeof(Collider2D))]
+public class PlayerHealth : MonoBehaviour
+{
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.TryGetComponent<LivingEntity>(out var livingEntity))
+        {
+            TakeDamage(livingEntity.Damage);
+        }
+    }
+}
+```
+```csharp
+public abstract class LivingEntity : MonoBehaviour
+{
+    public abstract int Damage { get; }
 
+    [SerializeField]
+    protected int _maxHealth = 100;
+
+    protected int _health;
+
+    private void Awake()
+    {
+        _health = _maxHealth;
+    }
+
+    public virtual void TakeDamage(int damage)
+    {
+        _health -= damage;
+    }
+}
+```
+```csharp
+public class Asteroid : LivingEntity
+{
+    public override int Damage => 200;
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if (_health <= 0)
+        {
+            var spawnedAsteroidPiece = Instantiate(_asteroidPiecePrefab);
+            spawnedAsteroidPiece.transform.position = Transform.position;
+            Destroy(gameObject);
+        }
+    }
+}
+```
+```csharp
+public class Enemy : LivingEntity
+{
+    public override int Damage => 100;
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+}
+```
 ## 🤼 Interface Segregation Principle
 Clients should not be forced to depend upon the interfaces that they do not use.
 
