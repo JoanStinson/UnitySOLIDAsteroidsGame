@@ -491,8 +491,112 @@ public class Enemy : LivingEntity
 Clients should not be forced to depend upon the interfaces that they do not use.
 
 ### ❌ Wrong Way
+```csharp
+public interface IEntity
+{
+    GameObject DeathParticlesPrefab { get; }
+    Sprite IdleSprite { get; }
+    Sprite MovingUpSprite { get; }
+    Sprite MovingDownSprite { get; }
+    float MoveSpeed { get; }
+    int Health { get; }
+    int MaxHealth { get; }
+    int Damage { get; }
 
+    void SpawnDeathParticles();
+    void TakeDamage(int damage);
+    void LaunchWeapon(Weapon weapon);
+    void LaunchProjectile(Transform mountPoint);
+}
+```
+```csharp
+public class Asteroid : IEntity
+{
+    // implement all interface members
+}
+```
+```csharp
+public class BulletLauncher : IEntity
+{
+    // implement all interface members
+}
+```
+```csharp
+public class EnemyShip : IEntity
+{
+    // implement all interface members
+}
+```
+```csharp
+public class Missile : IEntity
+{
+    // implement all interface members
+}
+```
 ### ✔️ Right Way
+```csharp
+public interface IMovingEntity
+{
+    GameObject DeathParticlesPrefab { get; }
+    float MoveSpeed { get; }
+    int Damage { get; }
+
+    void SpawnDeathParticles();
+}
+```
+```csharp
+public interface IAnimatedShip
+{
+    Sprite IdleSprite { get; }
+    Sprite MovingUpSprite { get; }
+    Sprite MovingDownSprite { get; }
+}
+```
+```csharp
+public interface IHaveHealth
+{
+    int Health { get; }
+    int MaxHealth { get; }
+
+    void TakeDamage(int damage);
+}
+```
+```csharp
+public interface ILauncher
+{
+    void Launch(Weapon weapon);
+}
+```
+```csharp
+public interface IProjectile
+{
+    void Launch(Transform mountPoint);
+}
+```
+```csharp
+public class Asteroid : IMovingEntity, IHaveHealth
+{
+    // implement only needed interfaces
+}
+```
+```csharp
+public class BulletLauncher : ILauncher
+{
+    // implement only needed interfaces
+}
+```
+```csharp
+public class EnemyShip : IMovingEntity, IAnimatedShip, IHaveHealth
+{
+    // implement only needed interfaces
+}
+```
+```csharp
+public class Missile : IMovingEntity, IProjectile
+{
+    // implement only needed interfaces
+}
+```
 
 ## ↕️ Dependency Inversion Principle
 Program to an interface, not to an implementation.
