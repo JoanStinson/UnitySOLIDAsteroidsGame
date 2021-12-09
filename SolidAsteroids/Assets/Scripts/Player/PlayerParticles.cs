@@ -3,7 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerParticles : MonoBehaviour
 {
-    [SerializeField] private GameObject _deathParticlesPrefab;
+    [SerializeField] 
+    private GameObject _deathParticlesPrefab;
 
     private void Awake()
     {

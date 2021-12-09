@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 1667088935}
   - component: {fileID: 1667088934}
   - component: {fileID: 1667088933}
+  - component: {fileID: 1667088942}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -700,9 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fca53ab351265478b3dd896118ccbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 2251717931720457878, guid: a68dfed4f3de97446b25741720dfc8dd,
-    type: 3}
-  _projectileSpawnPoint: {fileID: 2058997212}
+  _fireWeaponRefreshRate: 0.25
+  _weaponMountPoint: {fileID: 2058997212}
 --- !u!114 &1667088934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,7 +779,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1667088939
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -872,6 +872,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1667088942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667088932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e4f81b079fdb8429528a4f335d92da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _missilePrefab: {fileID: 1253015627591238847, guid: f343d7985726c554484258b90dea3e53,
+    type: 3}
+  _missileSelfDestructTimer: 5
 --- !u!1 &1803208606
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2058997212}
   m_Layer: 0
-  m_Name: ProjectileSpawnPoint
+  m_Name: WeaponMountPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
