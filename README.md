@@ -223,7 +223,8 @@ public class PlayerHealth : MonoBehaviour
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerParticles : MonoBehaviour
 {
-    [SerializeField] private GameObject _deathParticlesPrefab;
+    [SerializeField] 
+    private GameObject _deathParticlesPrefab;
 
     private void Awake()
     {
@@ -260,8 +261,121 @@ public class ProjectileLauncher : MonoBehaviour
 A software module (it can be a class or method) should be open for extension but closed for modification.
 
 ### ❌ Wrong Way
+```csharp
+[RequireComponent(typeof(PlayerInput))]
+public class Weapon : MonoBehaviour
+{
+    [SerializeField] private float _fireWeaponRefreshRate = 1f;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private GameObject _missilePrefab;
+    [SerializeField] private Transform _projectileSpawnPoint;
 
+    private float _nextFireTime;
+
+    private void Awake()
+    {
+        GetComponent<PlayerInput>().OnFireWeapon += FireWeapon;
+    }
+
+    private void FireWeapon()
+    {
+        if (!CanFire())
+        {
+            return;
+        }
+
+        _nextFireTime = Time.time + _fireWeaponRefreshRate;
+
+        if (_bulletPrefab != null)
+        {
+            var spawnedBullet = Instantiate(_bulletPrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
+            spawnedBullet.transform.position = transform.position;
+        }
+        else if (_missilePrefab != null)
+        {
+            var spawnedMissile = Instantiate(_missilePrefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
+            spawnedMissile.transform.position = transform.position;
+        }
+        // the list goes on...
+    }
+
+    private bool CanFire()
+    {
+        return Time.time >= _nextFireTime;
+    }
+}
+```
 ### ✔️ Right Way
+```csharp
+[RequireComponent(typeof(ILauncher))]
+[RequireComponent(typeof(PlayerInput))]
+public class Weapon : MonoBehaviour
+{
+    public Transform WeaponMountPoint => _weaponMountPoint;
+
+    [SerializeField] private float _fireWeaponRefreshRate = 0.25f;
+    [SerializeField] private Transform _weaponMountPoint;
+
+    private ILauncher _launcher;
+    private float _nextFireTime;
+
+    private void Awake()
+    {
+        _launcher = GetComponent<ILauncher>();
+        GetComponent<PlayerInput>().OnFireWeapon += FireWeapon;
+    }
+
+    private void FireWeapon()
+    {
+        if (!CanFire())
+        {
+            return;
+        }
+
+        _nextFireTime = Time.time + _fireWeaponRefreshRate;
+        _launcher.Launch(this);
+    }
+
+    private bool CanFire()
+    {
+        return Time.time >= _nextFireTime;
+    }
+}
+```
+```csharp
+public interface ILauncher
+{
+    void Launch(Weapon weapon);
+}
+```
+```csharp
+public class BulletLauncher : MonoBehaviour, ILauncher
+{
+    [SerializeField] 
+    private Bullet _bulletPrefab;
+
+    public void Launch(Weapon weapon)
+    {
+        var spawnedBullet = Instantiate(_bulletPrefab);
+        spawnedBullet.Launch(weapon.WeaponMountPoint);
+    }
+}
+```
+```csharp
+public class MissileLauncher : MonoBehaviour, ILauncher
+{
+    [SerializeField] private Missile _missilePrefab;
+    [SerializeField] private float _missileSelfDestructTimer = 5f;
+
+    public void Launch(Weapon weapon)
+    {
+        var target = FindObjectOfType<Asteroid>();
+        var spawnedMissile = Instantiate(_missilePrefab);
+        spawnedMissile.SetTarget(weapon.WeaponMountPoint, target.transform);
+        StartCoroutine(spawnedMissile.SelfDestructAfterDelay(_missileSelfDestructTimer));
+    }
+}
+```
 
 ## 🦆 Liskov Substitution Principle
 Derived classes must be substitutable for their base classes.
