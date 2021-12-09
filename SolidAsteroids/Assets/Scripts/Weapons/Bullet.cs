@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Projectile
 {
-    [SerializeField]
-    private float _moveSpeed = 25f;
+    public override int Damage => 10;
+
+    [SerializeField] private float _moveSpeed = 25f;
+    [SerializeField] private int _damageAmount = 10;
 
     private bool _launched;
 

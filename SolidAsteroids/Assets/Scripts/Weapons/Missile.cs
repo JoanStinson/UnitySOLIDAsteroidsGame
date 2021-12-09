@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class Missile : Projectile
 {
+    public override int Damage => 15;
+
     [SerializeField]
     private float _moveSpeed = 25f;
 

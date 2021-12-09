@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour, IEntity
+public class Asteroid : LivingEntity
 {
-    public int Damage => 100;
+    public override int Damage => 100;
 
     [SerializeField] private float _moveSpeed = 0.1f;
     [SerializeField] private float rotationSpeed = 30f;
@@ -22,4 +22,15 @@ public class Asteroid : MonoBehaviour, IEntity
         _newPosition -= Vector3.right * Time.deltaTime * _moveSpeed;
         transform.position = _newPosition + Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude;
     }
+
+    //public override void TakeDamage(int damage)
+    //{
+    //    base.TakeDamage(damage);
+    //    if (_health <= 0)
+    //    {
+    //        var spawnedAsteroidPiece = Instantiate(_asteroidPiecePrefab);
+    //        spawnedAsteroidPiece.transform.position = Transform.position;
+    //        Destroy(gameObject);
+    //    }
+    //}
 }
