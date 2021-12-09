@@ -4,12 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerHealth))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerDrawer : MonoBehaviour
+public class PlayerDrawer : MonoBehaviour, IAnimatedShip
 {
+    [field: SerializeField] public Sprite IdleSprite { get; set; }
+    [field: SerializeField] public float Speed { get; set; }
+    [SerializeField] public Sprite MovingUpSprite => _movingUpSprite;
+    [SerializeField] public Sprite MovingDownSprite => _movingDownSprite;
+
     [SerializeField] private float _moveSpeed = 25f;
-    [SerializeField] private Sprite _idleSprite;
-    [SerializeField] private Sprite _movingUpSprite;
-    [SerializeField] private Sprite _movingDownSprite;
+    /*[SerializeField] */private Sprite _idleSprite;
+    /*[SerializeField] */private Sprite _movingUpSprite;
+    /*[SerializeField] */private Sprite _movingDownSprite;
 
     private PlayerInput _playerInput;
     private SpriteRenderer _spriteRenderer;

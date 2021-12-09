@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class Bullet : Projectile
 {
-    public override int Damage => 10;
+    [SerializeField] public override GameObject DeathParticlesPrefab { get; }
+    [SerializeField] public override int Damage { get; }
+    [SerializeField] public override float MoveSpeed { get; }
 
     [SerializeField] private float _moveSpeed = 25f;
     [SerializeField] private int _damageAmount = 10;
 
     private bool _launched;
 
-    public void Launch(Transform mountPoint)
+    public override void Launch(Transform mountPoint)
     {
         transform.position = mountPoint.position;
         _launched = true;

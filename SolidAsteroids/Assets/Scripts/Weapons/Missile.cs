@@ -5,6 +5,10 @@ public class Missile : Projectile
 {
     public override int Damage => 15;
 
+    public override GameObject DeathParticlesPrefab => throw new System.NotImplementedException();
+
+    public override float MoveSpeed => throw new System.NotImplementedException();
+
     [SerializeField]
     private float _moveSpeed = 25f;
 
@@ -30,5 +34,10 @@ public class Missile : Projectile
     {
         yield return new WaitForSeconds(delayInSeconds);
         Destroy(gameObject);
+    }
+
+    public override void Launch(Transform mountPoint)
+    {
+        throw new System.NotImplementedException();
     }
 }
