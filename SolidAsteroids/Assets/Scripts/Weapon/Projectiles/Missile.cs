@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class Missile : Projectile
 {
-    public override int Damage => 15;
-
-    public override GameObject DeathParticlesPrefab => throw new System.NotImplementedException();
-
-    public override float MoveSpeed => throw new System.NotImplementedException();
+    public override GameObject SpawnParticlesPrefab { get; set; }
+    public override GameObject DeathParticlesPrefab { get; set; }
+    public override int Damage { get; set; }
+    public override float MoveSpeed { get; set; }
 
     [SerializeField]
     private float _moveSpeed = 25f;

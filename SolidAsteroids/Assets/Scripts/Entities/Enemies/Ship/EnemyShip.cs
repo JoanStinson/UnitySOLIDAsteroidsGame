@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : LivingEntity
+public class EnemyShip : LivingEntity
 {
     public override int Damage => 100;
 
