@@ -4,14 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerHealth))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerDrawer : MonoBehaviour, IAnimatedShip
+public class PlayerDrawer : MonoBehaviour
 {
-    [field: SerializeField] public Sprite IdleSprite { get; set; }
-    [field: SerializeField] public Sprite MovingUpSprite { get; set; }
-    [field: SerializeField] public Sprite MovingDownSprite { get; set; }
+    [SerializeField] private Sprite _idleSprite;
+    [SerializeField] private Sprite _movingUpSprite;
+    [SerializeField] private Sprite _movingDownSprite;
 
-    [SerializeField] private float _moveSpeed = 30f;
-
+    private PlayerHealth _playerHealth;
     private PlayerInput _playerInput;
     private SpriteRenderer _spriteRenderer;
     private Vector3 _initialPosition;
@@ -23,7 +22,8 @@ public class PlayerDrawer : MonoBehaviour, IAnimatedShip
 
     private void Awake()
     {
-        GetComponent<PlayerHealth>().OnPlayerRespawn += RespawnPlayer;
+        _playerHealth = GetComponent<PlayerHealth>();
+        _playerHealth.OnPlayerRespawn += RespawnPlayer;
         _playerInput = GetComponent<PlayerInput>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         transform.position = new Vector3(_xAxisPosition, transform.position.y, transform.position.z);
@@ -32,17 +32,17 @@ public class PlayerDrawer : MonoBehaviour, IAnimatedShip
 
     private void Update()
     {
-        var newPosition = transform.position + (Vector3.up * _playerInput.Input.Vertical * _moveSpeed * Time.deltaTime);
+        var newPosition = transform.position + (Vector3.up * _playerInput.Input.Vertical * _playerHealth.MoveSpeed * Time.deltaTime);
         newPosition.y = Mathf.Clamp(newPosition.y, _bottomLimit, _topLimit);
         transform.position = newPosition;
 
         if (_playerInput.Input.Vertical == 0)
         {
-            _spriteRenderer.sprite = IdleSprite;
+            _spriteRenderer.sprite = _idleSprite;
         }
         else
         {
-            _spriteRenderer.sprite = _playerInput.Input.Vertical > 0 ? MovingUpSprite : MovingDownSprite;
+            _spriteRenderer.sprite = _playerInput.Input.Vertical > 0 ? _movingUpSprite : _movingDownSprite;
         }
     }
 

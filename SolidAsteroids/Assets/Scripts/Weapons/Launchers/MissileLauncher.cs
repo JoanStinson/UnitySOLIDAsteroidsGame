@@ -9,7 +9,8 @@ public class MissileLauncher : MonoBehaviour, ILauncher
     {
         var target = FindObjectOfType<Asteroid>();
         var spawnedMissile = Instantiate(_missilePrefab);
-        spawnedMissile.SetTarget(weapon.WeaponMountPoint, target.transform);
+        spawnedMissile.SetTarget(target.transform);
+        spawnedMissile.Launch(weapon.WeaponMountPoint);
         StartCoroutine(spawnedMissile.SelfDestructAfterDelay(_missileSelfDestructTimer));
     }
 }

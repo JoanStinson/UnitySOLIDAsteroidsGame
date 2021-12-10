@@ -2,21 +2,17 @@ using UnityEngine;
 
 public class EnemyShip : LivingEntity
 {
-    public override int Damage => 100;
-
-    [SerializeField] 
-    private float _moveSpeed = 2f;
-
     private void Update()
     {
-        transform.localPosition -= Vector3.right * Time.deltaTime * _moveSpeed;
+        transform.localPosition -= Vector3.right * MoveSpeed * Time.deltaTime;
     }
 
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-        if (_health <= 0)
+        if (Health <= 0)
         {
+            SpawnDeathParticles();
             Destroy(gameObject);
         }
     }

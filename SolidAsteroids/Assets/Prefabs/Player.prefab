@@ -150,13 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055bc34e0b7f5944783734408278135f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IdleSprite>k__BackingField: {fileID: 21300000, guid: 4f3ca6c2ba5724c4c90aee322cf79137,
-    type: 3}
-  <MovingUpSprite>k__BackingField: {fileID: 21300000, guid: 65019c4b741d6493d97d4072eff8e23b,
-    type: 3}
-  <MovingDownSprite>k__BackingField: {fileID: 21300000, guid: 10af89f5b9af24605a83d05e21dfdeb5,
-    type: 3}
-  _moveSpeed: 30
+  _idleSprite: {fileID: 21300000, guid: 4f3ca6c2ba5724c4c90aee322cf79137, type: 3}
+  _movingUpSprite: {fileID: 21300000, guid: 65019c4b741d6493d97d4072eff8e23b, type: 3}
+  _movingDownSprite: {fileID: 21300000, guid: 10af89f5b9af24605a83d05e21dfdeb5, type: 3}
 --- !u!114 &589548929321194426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850105eaffedb1e4389c58e387c4e5a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  <MoveSpeed>k__BackingField: 30
+  <Damage>k__BackingField: 10
+  <MaxHealth>k__BackingField: 30
+  <DeathParticlesPrefab>k__BackingField: {fileID: 0}
   _isInvulnerable: 0
 --- !u!114 &589548929321194420
 MonoBehaviour:

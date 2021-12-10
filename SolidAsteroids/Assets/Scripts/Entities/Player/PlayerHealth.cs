@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerHealth : LivingEntity
 {
-    public override int Damage => 10;
     public event Action OnPlayerRespawn = delegate { };
 
+    [Header("Player")]
     [SerializeField] 
     private bool _isInvulnerable;
 
@@ -25,9 +25,10 @@ public class PlayerHealth : LivingEntity
     {
         if (!_isInvulnerable)
         {
-            _health -= damage;
-            if (_health <= 0)
+            Health -= damage;
+            if (Health <= 0)
             {
+                //SpawnDeathParticles();
                 RespawnPlayer();
             }
         }

@@ -1,21 +1,29 @@
 using UnityEngine;
 
-public abstract class LivingEntity : MonoBehaviour
+public abstract class LivingEntity : MonoBehaviour, IMovingEntity, IHaveHealth
 {
-    public abstract int Damage { get; }
+    [field: Header("Living Entity")]
+    [field: SerializeField] public float MoveSpeed { get; set; } = 0.1f;
+    [field: SerializeField] public int Damage { get; set; } = 10;
+    [field: SerializeField] public int MaxHealth { get; set; } = 100;
+    [field: SerializeField] public GameObject DeathParticlesPrefab { get; set; }
+    [field: Space(10)]
 
-    [SerializeField]
-    protected int _maxHealth = 100;
+    public int Health { get; protected set; }
 
-    protected int _health;
-
-    private void Awake()
+    protected virtual void Awake()
     {
-        _health = _maxHealth;
+        Health = MaxHealth;
     }
 
     public virtual void TakeDamage(int damage)
     {
-        _health -= damage;
+        Health -= damage;
+    }
+
+    public virtual void SpawnDeathParticles()
+    {
+        Instantiate(DeathParticlesPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
