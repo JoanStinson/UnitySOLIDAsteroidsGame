@@ -31,15 +31,15 @@ public class PlayerDrawer : MonoBehaviour, IAnimatedShip
 
     private void Update()
     {
-        transform.position += Vector3.up * _playerInput.Vertical * _moveSpeed * Time.deltaTime;
+        transform.position += Vector3.up * _playerInput.Input.Vertical * _moveSpeed * Time.deltaTime;
 
-        if (_playerInput.Vertical == 0)
+        if (_playerInput.Input.Vertical == 0)
         {
             _spriteRenderer.sprite = _idleSprite;
         }
         else
         {
-            _spriteRenderer.sprite = _playerInput.Vertical > 0 ? _movingUpSprite : _movingDownSprite;
+            _spriteRenderer.sprite = _playerInput.Input.Vertical > 0 ? _movingUpSprite : _movingDownSprite;
         }
     }
 

@@ -1,18 +1,25 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(UserInput))]
 public class PlayerInput : MonoBehaviour
 {
-    public float Vertical { get; private set; }
-    public bool ShootProjectile { get; private set; }
-
+    public IInputService Input { get; private set; }
     public event Action OnFireWeapon = delegate { };
+
+    [SerializeField]
+    private PlayerSettings _playerSettings;
+
+    private void Awake()
+    {
+        Input = _playerSettings.UseBot ? new BotInput() as IInputService: new UserInput();
+    }
 
     private void Update()
     {
-        Vertical = Input.GetAxis("Vertical");
-        ShootProjectile = Input.GetButtonDown("Submit");
-        if (ShootProjectile)
+        Input.ReadInput();
+
+        if (Input.ShootProjectile)
         {
             OnFireWeapon();
         }

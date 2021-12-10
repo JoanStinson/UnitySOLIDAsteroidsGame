@@ -360,8 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52039517065bda438785bdc37e6136c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
   _moveSpeed: 0.1
-  rotationSpeed: 30
+  _rotationSpeed: 30
   _frequency: 0.5
   _magnitude: 4
 --- !u!1 &1142082667
@@ -395,6 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac88c49c2ad04744a508f05e2d20b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
   _moveSpeed: 2
 --- !u!212 &1142082669
 SpriteRenderer:
@@ -743,6 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176bc12aad9a2e34fa854198fbc2c341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerSettings: {fileID: 11400000, guid: 77ce73323e8f96d4c9355f7a5398540f, type: 2}
 --- !u!114 &1667088937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,10 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055bc34e0b7f5944783734408278135f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IdleSprite>k__BackingField: {fileID: 0}
+  <Speed>k__BackingField: 0
   _moveSpeed: 25
-  _idleSprite: {fileID: 21300000, guid: 4f3ca6c2ba5724c4c90aee322cf79137, type: 3}
-  _movingUpSprite: {fileID: 21300000, guid: 10af89f5b9af24605a83d05e21dfdeb5, type: 3}
-  _movingDownSprite: {fileID: 21300000, guid: 65019c4b741d6493d97d4072eff8e23b, type: 3}
 --- !u!50 &1667088938
 Rigidbody2D:
   serializedVersion: 4
