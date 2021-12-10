@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Asteroid : LivingEntity
 {
+    public event Action OnAsteroidBreak = delegate { };
+
     [Header("Asteroid")]
     [SerializeField] private float _rotationSpeed = 30f;
     [SerializeField] private float _frequency = 0.5f;
@@ -10,9 +13,11 @@ public class Asteroid : LivingEntity
     private Vector3 _newPosition;
     private bool _startMovingUp;
 
-    public void SetStartDirection(bool startMovingUp)
+    public void Initialize(bool startMovingUp, Vector3 startPosition)
     {
         _startMovingUp = startMovingUp;
+        transform.position = startPosition;
+        _newPosition = startPosition;
     }
 
     protected override void Awake()
@@ -40,9 +45,8 @@ public class Asteroid : LivingEntity
         base.TakeDamage(damage);
         if (Health <= 0)
         {
+            OnAsteroidBreak();
             SpawnDeathParticles();
-            //var spawnedAsteroidPiece = Instantiate(_asteroidPiecePrefab);
-            //spawnedAsteroidPiece.transform.position = transform.position;
             Destroy(gameObject);
         }
     }
