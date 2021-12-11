@@ -164,9 +164,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8413c71bf152d48ae5bd0c3f3c7be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SpawnParticlesPrefab>k__BackingField: {fileID: 3252451175251361930, guid: 603d841568a45054d81a980db6f1612e,
-    type: 3}
-  <DeathParticlesPrefab>k__BackingField: {fileID: 6427354505715047141, guid: 690302d13061350499e37f7419425b7d,
-    type: 3}
   <Damage>k__BackingField: 10
   <MoveSpeed>k__BackingField: 25

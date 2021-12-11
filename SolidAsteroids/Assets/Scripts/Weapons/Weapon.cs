@@ -5,6 +5,7 @@ using UnityEngine;
 namespace JGM.Game.Weapons
 {
     [RequireComponent(typeof(ILauncher))]
+    [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(PlayerInput))]
     public class Weapon : MonoBehaviour
     {
@@ -14,11 +15,13 @@ namespace JGM.Game.Weapons
         [SerializeField] private Transform _weaponMountPoint;
 
         private ILauncher _launcher;
+        private AudioSource _audioSource;
         private float _nextFireTime;
 
         private void Awake()
         {
             _launcher = GetComponent<ILauncher>();
+            _audioSource = GetComponent<AudioSource>();
             GetComponent<PlayerInput>().OnFireWeapon += FireWeapon;
         }
 
@@ -30,6 +33,7 @@ namespace JGM.Game.Weapons
             }
 
             _nextFireTime = Time.time + _fireWeaponRefreshRate;
+            _audioSource.Play();
             _launcher?.Launch(this);
         }
 
