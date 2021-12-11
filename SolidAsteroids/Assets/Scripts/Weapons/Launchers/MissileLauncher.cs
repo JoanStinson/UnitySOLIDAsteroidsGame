@@ -1,4 +1,3 @@
-using JGM.Game.Weapons;
 using JGM.Game.Weapons.Projectiles;
 using JGM.Game.Entities.Asteroid;
 using JGM.Game.Pool;

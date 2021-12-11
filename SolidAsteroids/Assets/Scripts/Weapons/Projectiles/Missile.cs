@@ -1,4 +1,3 @@
-using JGM.Game.Weapons.Projectiles;
 using System.Collections;
 using UnityEngine;
 

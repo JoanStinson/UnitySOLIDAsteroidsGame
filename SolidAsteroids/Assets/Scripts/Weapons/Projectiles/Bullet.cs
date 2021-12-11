@@ -1,4 +1,3 @@
-using JGM.Game.Weapons.Projectiles;
 using UnityEngine;
 
 namespace JGM.Game.Weapons.Projectiles

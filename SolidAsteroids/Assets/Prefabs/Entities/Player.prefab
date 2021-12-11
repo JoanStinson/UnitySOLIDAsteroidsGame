@@ -101,7 +101,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0015854836, y: 0.093543276}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fca53ab351265478b3dd896118ccbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireWeaponRefreshRate: 0.25
+  _fireWeaponRefreshRate: 0.2
   _weaponMountPoint: {fileID: 589548929423694926}
 --- !u!114 &589548929321194428
 MonoBehaviour:
@@ -224,7 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36b95ad92e93c24a8fd92f50659a980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 2251717931720457879, guid: a68dfed4f3de97446b25741720dfc8dd,
+  _bulletsPoolSize: 5
+  _bulletPrefab: {fileID: 2251717931720457878, guid: a68dfed4f3de97446b25741720dfc8dd,
+    type: 3}
+  _bulletSpawnParticlesPrefab: {fileID: 3252451175251361930, guid: 603d841568a45054d81a980db6f1612e,
+    type: 3}
+  _bulletDeathParticlesPrefab: {fileID: 6427354505715047141, guid: 690302d13061350499e37f7419425b7d,
     type: 3}
 --- !u!1 &589548929423694921
 GameObject:

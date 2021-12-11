@@ -1,4 +1,3 @@
-using JGM.Game.Entities.Player;
 using System.Collections;
 using UnityEngine;
 

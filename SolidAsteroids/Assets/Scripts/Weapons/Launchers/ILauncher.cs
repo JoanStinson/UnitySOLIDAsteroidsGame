@@ -1,4 +1,3 @@
-using JGM.Game.Weapons;
 using JGM.Game.Pool;
 using UnityEngine;
 

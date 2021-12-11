@@ -995,44 +995,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 589548929321194423, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: _fireWeaponRefreshRate
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 589548929321194424, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 589548929321194425, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 589548929321194428, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: _bulletPrefab
-      value: 
-      objectReference: {fileID: 2251717931720457878, guid: a68dfed4f3de97446b25741720dfc8dd,
-        type: 3}
-    - target: {fileID: 589548929321194428, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: _bulletsPoolSize
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 589548929321194428, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: _bulletDeathParticlesPrefab
-      value: 
-      objectReference: {fileID: 6427354505715047141, guid: 690302d13061350499e37f7419425b7d,
-        type: 3}
-    - target: {fileID: 589548929321194428, guid: 6fdd69c786b30cd418b6338f986d4ce5,
-        type: 3}
-      propertyPath: _bulletSpawnParticlesPrefab
-      value: 
-      objectReference: {fileID: 3252451175251361930, guid: 603d841568a45054d81a980db6f1612e,
-        type: 3}
     - target: {fileID: 589548929321194431, guid: 6fdd69c786b30cd418b6338f986d4ce5,
         type: 3}
       propertyPath: m_RootOrder
