@@ -1,7 +1,10 @@
-﻿public interface IHaveHealth
+﻿namespace JGM.Game.Entities.Stats
 {
-    int MaxHealth { get; }
-    int Health { get; }
+    public interface IHaveHealth
+    {
+        int MaxHealth { get; }
+        int Health { get; }
 
-    void TakeDamage(int damage);
+        void TakeDamage(int damage);
+    }
 }

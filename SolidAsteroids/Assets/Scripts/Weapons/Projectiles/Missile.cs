@@ -1,34 +1,38 @@
+using JGM.Game.Weapons.Projectiles;
 using System.Collections;
 using UnityEngine;
 
-public class Missile : Projectile
+namespace JGM.Game.Weapons.Projectiles
 {
-    [field: SerializeField] public override int Damage { get; set; } = 20;
-    [field: SerializeField] public override float MoveSpeed { get; set; } = 15f;
-
-    private Transform _target;
-
-    public void SetTarget(Transform target)
+    public class Missile : Projectile
     {
-        _target = target;
-    }
+        [field: SerializeField] public override int Damage { get; set; } = 20;
+        [field: SerializeField] public override float MoveSpeed { get; set; } = 15f;
 
-    private void Update()
-    {
-        if (_launched && _target != null)
+        private Transform _target;
+
+        public void SetTarget(Transform target)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _target.position, MoveSpeed * Time.deltaTime);
+            _target = target;
+        }
 
-            if (transform.position.x > 9f)
+        private void Update()
+        {
+            if (_launched && _target != null)
             {
-                gameObject.SetActive(false);
+                transform.position = Vector3.MoveTowards(transform.position, _target.position, MoveSpeed * Time.deltaTime);
+
+                if (transform.position.x > 9f)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
-    }
 
-    public IEnumerator SelfDestructAfterDelay(float delayInSeconds)
-    {
-        yield return new WaitForSeconds(delayInSeconds);
-        gameObject.SetActive(false);
+        public IEnumerator SelfDestructAfterDelay(float delayInSeconds)
+        {
+            yield return new WaitForSeconds(delayInSeconds);
+            gameObject.SetActive(false);
+        }
     }
 }

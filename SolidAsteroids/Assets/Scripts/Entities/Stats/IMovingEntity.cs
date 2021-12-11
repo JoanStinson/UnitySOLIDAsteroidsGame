@@ -1,7 +1,10 @@
-﻿public interface IMovingEntity
+﻿namespace JGM.Game.Entities.Stats
 {
-    float MoveSpeed { get; }
-    int Damage { get; }
+    public interface IMovingEntity
+    {
+        float MoveSpeed { get; }
+        int Damage { get; }
 
-    void SpawnDeathParticles();
+        void SpawnDeathParticles();
+    }
 }

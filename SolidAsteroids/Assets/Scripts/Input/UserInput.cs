@@ -1,13 +1,14 @@
-using UnityEngine;
-
-public class UserInput : IInputService
+namespace JGM.Game.Input
 {
-    public float Vertical { get; private set; }
-    public bool ShootProjectile { get; private set; }
-
-    public void ReadInput()
+    public class UserInput : IInputService
     {
-        Vertical = Input.GetAxis("Vertical");
-        ShootProjectile = Input.GetButtonDown("Submit");
+        public float Vertical { get; private set; }
+        public bool ShootProjectile { get; private set; }
+
+        public void ReadInput()
+        {
+            Vertical = UnityEngine.Input.GetAxis("Vertical");
+            ShootProjectile = UnityEngine.Input.GetButtonDown("Submit");
+        }
     }
 }

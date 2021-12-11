@@ -1,37 +1,54 @@
+using JGM.Game.Entities.Stats;
+using JGM.Game.Utils;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class EnemyShip : LivingEntity
+namespace JGM.Game.Entities.EnemyShip
 {
-    private const float _leftLimit = -9f;
-    private const float _resetDelayInSeconds = 2.5f;
-
-    private void Update()
+    public class EnemyShip : LivingEntity
     {
-        transform.position -= Vector3.right * MoveSpeed * Time.deltaTime;
+        private const float _leftLimit = -9f;
+        private const float _resetDelayInSeconds = 2.5f;
+        private CancellationTokenSource _tokenSource;
 
-        if (transform.position.x < _leftLimit)
+        private void Awake()
         {
-            ResetPosition();
+            _tokenSource = new CancellationTokenSource();
         }
-    }
 
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        if (Health <= 0)
+        private void Update()
         {
-            SpawnDeathParticles();
-            ResetPosition();
-        }
-    }
+            transform.position -= Vector3.right * MoveSpeed * Time.deltaTime;
 
-    private async void ResetPosition()
-    {
-        gameObject.SetActive(false);
-        await Task.Delay(TimeSpan.FromSeconds(_resetDelayInSeconds));
-        gameObject.SetActive(true);
-        gameObject.transform.position = RandomPositioner.GetRandomPos();
+            if (transform.position.x < _leftLimit)
+            {
+                ResetPosition();
+            }
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            base.TakeDamage(damage);
+            if (Health <= 0)
+            {
+                SpawnDeathParticles();
+                ResetPosition();
+            }
+        }
+
+        private async void ResetPosition()
+        {
+            gameObject.SetActive(false);
+            await Task.Delay(TimeSpan.FromSeconds(_resetDelayInSeconds), _tokenSource.Token);
+            gameObject.SetActive(true);
+            gameObject.transform.position = RandomPositioner.GetRandomPos();
+        }
+
+        private void OnDestroy()
+        {
+            _tokenSource.Cancel();
+        }
     }
 }

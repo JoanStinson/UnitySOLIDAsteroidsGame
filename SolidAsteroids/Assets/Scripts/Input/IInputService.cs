@@ -1,7 +1,10 @@
-public interface IInputService
+namespace JGM.Game.Input
 {
-    float Vertical { get; }
-    bool ShootProjectile { get; }
+    public interface IInputService
+    {
+        float Vertical { get; }
+        bool ShootProjectile { get; }
 
-    void ReadInput();
+        void ReadInput();
+    }
 }

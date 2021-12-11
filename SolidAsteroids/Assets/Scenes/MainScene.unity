@@ -1000,6 +1000,16 @@ PrefabInstance:
       propertyPath: _fireWeaponRefreshRate
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 589548929321194424, guid: 6fdd69c786b30cd418b6338f986d4ce5,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 589548929321194425, guid: 6fdd69c786b30cd418b6338f986d4ce5,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 589548929321194428, guid: 6fdd69c786b30cd418b6338f986d4ce5,
         type: 3}
       propertyPath: _bulletPrefab

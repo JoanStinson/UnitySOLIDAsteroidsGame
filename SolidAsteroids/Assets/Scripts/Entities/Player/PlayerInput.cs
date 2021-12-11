@@ -1,27 +1,32 @@
+using JGM.Game.Input;
+using JGM.Game.Settings;
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(UserInput))]
-public class PlayerInput : MonoBehaviour
+namespace JGM.Game.Entities.Player
 {
-    public IInputService Input { get; private set; }
-    public event Action OnFireWeapon = delegate { };
-
-    [SerializeField]
-    private PlayerSettings _playerSettings;
-
-    private void Awake()
+    [RequireComponent(typeof(UserInput))]
+    public class PlayerInput : MonoBehaviour
     {
-        Input = _playerSettings.UseBot ? new BotInput() as IInputService: new UserInput();
-    }
+        public IInputService Input { get; private set; }
+        public event Action OnFireWeapon = delegate { };
 
-    private void Update()
-    {
-        Input.ReadInput();
+        [SerializeField]
+        private PlayerSettings _playerSettings;
 
-        if (Input.ShootProjectile)
+        private void Awake()
         {
-            OnFireWeapon();
+            Input = _playerSettings.UseBot ? new BotInput() as IInputService : new UserInput();
+        }
+
+        private void Update()
+        {
+            Input.ReadInput();
+
+            if (Input.ShootProjectile)
+            {
+                OnFireWeapon();
+            }
         }
     }
 }

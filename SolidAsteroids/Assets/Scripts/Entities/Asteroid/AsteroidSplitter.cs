@@ -1,26 +1,29 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Asteroid))]
-public class AsteroidSplitter : MonoBehaviour
+namespace JGM.Game.Entities.Asteroid
 {
-    [SerializeField] private Asteroid _asteroidPiecePrefab;
-    [SerializeField] private int _totalAsteroidPieces = 2;
-
-    private Asteroid _asteroid;
-
-    private void Awake()
+    [RequireComponent(typeof(Asteroid))]
+    public class AsteroidSplitter : MonoBehaviour
     {
-        _asteroid = GetComponent<Asteroid>();
-        _asteroid.OnAsteroidBreak += SpawnAsteroidPieces;
-    }
+        [SerializeField] private Asteroid _asteroidPiecePrefab;
+        [SerializeField] private int _totalAsteroidPieces = 2;
 
-    private void SpawnAsteroidPieces()
-    {
-        for (int i = 0; i < _totalAsteroidPieces; ++i)
+        private Asteroid _asteroid;
+
+        private void Awake()
         {
-            var spawnedAsteroidPiece = Instantiate(_asteroidPiecePrefab);
-            bool startAsteroidMovingUp = (i % 2 == 0);
-            spawnedAsteroidPiece.Initialize(startAsteroidMovingUp, _asteroid.transform.position);
+            _asteroid = GetComponent<Asteroid>();
+            _asteroid.OnAsteroidBreak += SpawnAsteroidPieces;
+        }
+
+        private void SpawnAsteroidPieces()
+        {
+            for (int i = 0; i < _totalAsteroidPieces; ++i)
+            {
+                var spawnedAsteroidPiece = Instantiate(_asteroidPiecePrefab);
+                bool startAsteroidMovingUp = i % 2 == 0;
+                spawnedAsteroidPiece.Initialize(startAsteroidMovingUp, _asteroid.transform.position);
+            }
         }
     }
 }

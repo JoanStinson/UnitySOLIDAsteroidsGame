@@ -1,71 +1,76 @@
+using JGM.Game.Entities.Stats;
+using JGM.Game.Utils;
 using System;
 using UnityEngine;
 
-public class Asteroid : LivingEntity
+namespace JGM.Game.Entities.Asteroid
 {
-    public event Action OnAsteroidBreak = delegate { };
-
-    [Header("Asteroid")]
-    [SerializeField] private float _rotationSpeed = 30f;
-    [SerializeField] private float _frequency = 0.5f;
-    [SerializeField] private float _magnitude = 4f;
-    [SerializeField] private bool _shouldBeDestroyed;
-
-    private Vector3 _newPosition;
-    private const float _leftLimit = -9f;
-    private bool _startMovingUp;
-
-    public void Initialize(bool startMovingUp, Vector3 startPosition)
+    public class Asteroid : LivingEntity
     {
-        _startMovingUp = startMovingUp;
-        transform.position = startPosition;
-        _newPosition = startPosition;
-    }
+        public event Action OnAsteroidBreak = delegate { };
 
-    private void Start()
-    {
-        _newPosition = transform.position;
-    }
+        [Header("Asteroid")]
+        [SerializeField] private float _rotationSpeed = 30f;
+        [SerializeField] private float _frequency = 0.5f;
+        [SerializeField] private float _magnitude = 4f;
+        [SerializeField] private bool _shouldBeDestroyed;
 
-    private void Update()
-    {
-        transform.rotation *= Quaternion.Euler(0f, 0f, _rotationSpeed * Time.deltaTime);
-        _newPosition -= Vector3.right * Time.deltaTime * MoveSpeed;
+        private Vector3 _newPosition;
+        private const float _leftLimit = -9f;
+        private bool _startMovingUp;
 
-        if (_startMovingUp)
+        public void Initialize(bool startMovingUp, Vector3 startPosition)
         {
-            transform.position = _newPosition + (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
+            _startMovingUp = startMovingUp;
+            transform.position = startPosition;
+            _newPosition = startPosition;
         }
-        else
-        {
-            transform.position = _newPosition - (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
-        }
-        if (transform.position.x < _leftLimit)
-        {
-            ResetPosition();
-        }
-    }
 
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        if (Health <= 0)
+        private void Start()
         {
-            OnAsteroidBreak();
-            SpawnDeathParticles();
-            ResetPosition();
+            _newPosition = transform.position;
         }
-    }
 
-    private void ResetPosition()
-    {
-        if (_shouldBeDestroyed)
+        private void Update()
         {
-            Destroy(gameObject);
+            transform.rotation *= Quaternion.Euler(0f, 0f, _rotationSpeed * Time.deltaTime);
+            _newPosition -= Vector3.right * Time.deltaTime * MoveSpeed;
+
+            if (_startMovingUp)
+            {
+                transform.position = _newPosition + Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude;
+            }
+            else
+            {
+                transform.position = _newPosition - Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude;
+            }
+            if (transform.position.x < _leftLimit)
+            {
+                ResetPosition();
+            }
         }
-        else
+
+        public override void TakeDamage(int damage)
         {
-            Initialize(true, RandomPositioner.GetRandomPos());
+            base.TakeDamage(damage);
+            if (Health <= 0)
+            {
+                OnAsteroidBreak();
+                SpawnDeathParticles();
+                ResetPosition();
+            }
+        }
+
+        private void ResetPosition()
+        {
+            if (_shouldBeDestroyed)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Initialize(true, RandomPositioner.GetRandomPos());
+            }
         }
     }
 }

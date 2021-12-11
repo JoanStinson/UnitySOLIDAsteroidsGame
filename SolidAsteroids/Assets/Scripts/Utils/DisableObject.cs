@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class DisableObject : MonoBehaviour
+namespace JGM.Game.Utils
 {
-    public void Disable()
+    public class DisableObject : MonoBehaviour
     {
-        gameObject.SetActive(false);
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

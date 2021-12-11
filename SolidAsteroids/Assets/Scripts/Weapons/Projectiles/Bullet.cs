@@ -1,19 +1,23 @@
+using JGM.Game.Weapons.Projectiles;
 using UnityEngine;
 
-public class Bullet : Projectile
+namespace JGM.Game.Weapons.Projectiles
 {
-    [field: SerializeField] public override int Damage { get; set; } = 10;
-    [field: SerializeField] public override float MoveSpeed { get; set; } = 25f;
-
-    private void Update()
+    public class Bullet : Projectile
     {
-        if (_launched)
-        {
-            transform.position += Vector3.right * MoveSpeed * Time.deltaTime;
+        [field: SerializeField] public override int Damage { get; set; } = 10;
+        [field: SerializeField] public override float MoveSpeed { get; set; } = 25f;
 
-            if (transform.position.x > 9f)
+        private void Update()
+        {
+            if (_launched)
             {
-                gameObject.SetActive(false);
+                transform.position += Vector3.right * MoveSpeed * Time.deltaTime;
+
+                if (transform.position.x > 9f)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

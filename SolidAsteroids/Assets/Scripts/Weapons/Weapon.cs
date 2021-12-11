@@ -1,36 +1,41 @@
+using JGM.Game.Entities.Player;
+using JGM.Game.Weapons.Launchers;
 using UnityEngine;
 
-[RequireComponent(typeof(ILauncher))]
-[RequireComponent(typeof(PlayerInput))]
-public class Weapon : MonoBehaviour
+namespace JGM.Game.Weapons
 {
-    public Transform WeaponMountPoint => _weaponMountPoint;
-
-    [SerializeField] private float _fireWeaponRefreshRate = 0.25f;
-    [SerializeField] private Transform _weaponMountPoint;
-
-    private ILauncher _launcher;
-    private float _nextFireTime;
-
-    private void Awake()
+    [RequireComponent(typeof(ILauncher))]
+    [RequireComponent(typeof(PlayerInput))]
+    public class Weapon : MonoBehaviour
     {
-        _launcher = GetComponent<ILauncher>();
-        GetComponent<PlayerInput>().OnFireWeapon += FireWeapon;
-    }
+        public Transform WeaponMountPoint => _weaponMountPoint;
 
-    private void FireWeapon()
-    {
-        if (!CanFire())
+        [SerializeField] private float _fireWeaponRefreshRate = 0.25f;
+        [SerializeField] private Transform _weaponMountPoint;
+
+        private ILauncher _launcher;
+        private float _nextFireTime;
+
+        private void Awake()
         {
-            return;
+            _launcher = GetComponent<ILauncher>();
+            GetComponent<PlayerInput>().OnFireWeapon += FireWeapon;
         }
 
-        _nextFireTime = Time.time + _fireWeaponRefreshRate;
-        _launcher?.Launch(this);
-    }
+        private void FireWeapon()
+        {
+            if (!CanFire())
+            {
+                return;
+            }
 
-    private bool CanFire()
-    {
-        return Time.time >= _nextFireTime;
+            _nextFireTime = Time.time + _fireWeaponRefreshRate;
+            _launcher?.Launch(this);
+        }
+
+        private bool CanFire()
+        {
+            return Time.time >= _nextFireTime;
+        }
     }
 }

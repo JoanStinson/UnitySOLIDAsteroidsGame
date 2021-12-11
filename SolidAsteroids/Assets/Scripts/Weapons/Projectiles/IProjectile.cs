@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public interface IProjectile
+namespace JGM.Game.Weapons.Projectiles
 {
-    void Launch(Transform mountPoint);
+    public interface IProjectile
+    {
+        void Launch(Transform mountPoint);
+    }
 }

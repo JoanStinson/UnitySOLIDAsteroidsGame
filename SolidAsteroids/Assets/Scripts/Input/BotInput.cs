@@ -1,14 +1,18 @@
+using JGM.Game.Input;
 using System;
 using Random = UnityEngine.Random;
 
-public class BotInput : IInputService
+namespace JGM.Game.Input
 {
-    public float Vertical { get; private set; }
-    public bool ShootProjectile { get; private set; }
-
-    public void ReadInput()
+    public class BotInput : IInputService
     {
-        Vertical = Random.Range(-1f, 1f);
-        ShootProjectile = Convert.ToBoolean(Random.Range(0, 1));
+        public float Vertical { get; private set; }
+        public bool ShootProjectile { get; private set; }
+
+        public void ReadInput()
+        {
+            Vertical = Random.Range(-1f, 1f);
+            ShootProjectile = Convert.ToBoolean(Random.Range(0, 1));
+        }
     }
 }

@@ -1,9 +1,14 @@
+using JGM.Game.Weapons;
+using JGM.Game.Pool;
 using UnityEngine;
 
-public interface ILauncher
+namespace JGM.Game.Weapons.Launchers
 {
-    ObjectPrefabPool<Transform> ProjectilesSpawnParticlesPool { get; }
-    ObjectPrefabPool<Transform> ProjectilesDeathParticlesPool { get; }
+    public interface ILauncher
+    {
+        ObjectPrefabPool<Transform> ProjectilesSpawnParticlesPool { get; }
+        ObjectPrefabPool<Transform> ProjectilesDeathParticlesPool { get; }
 
-    void Launch(Weapon weapon);
+        void Launch(Weapon weapon);
+    }
 }

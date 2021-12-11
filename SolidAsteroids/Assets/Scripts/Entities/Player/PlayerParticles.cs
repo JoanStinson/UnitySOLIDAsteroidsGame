@@ -1,18 +1,21 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerHealth))]
-public class PlayerParticles : MonoBehaviour
+namespace JGM.Game.Entities.Player
 {
-    [SerializeField] 
-    private GameObject _deathParticlesPrefab;
-
-    private void Awake()
+    [RequireComponent(typeof(PlayerHealth))]
+    public class PlayerParticles : MonoBehaviour
     {
-        GetComponent<PlayerHealth>().OnPlayerRespawn += SpawnDeathParticles;
-    }
+        [SerializeField]
+        private GameObject _deathParticlesPrefab;
 
-    private void SpawnDeathParticles()
-    {
-        Instantiate(_deathParticlesPrefab, transform.position, Quaternion.identity);
+        private void Awake()
+        {
+            GetComponent<PlayerHealth>().OnPlayerRespawn += SpawnDeathParticles;
+        }
+
+        private void SpawnDeathParticles()
+        {
+            Instantiate(_deathParticlesPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
