@@ -35,8 +35,11 @@ public abstract class Projectile : MonoBehaviour, IProjectile, IMovingEntity
     public virtual void SpawnDeathParticles()
     {
         _launcher.ProjectilesDeathParticlesPool.Get(out var projectileSpawnParticle);
-        projectileSpawnParticle.position = transform.position;
-        projectileSpawnParticle.rotation = Quaternion.identity;
+        if (projectileSpawnParticle != null)
+        {
+            projectileSpawnParticle.position = transform.position;
+            projectileSpawnParticle.rotation = Quaternion.identity;
+        }
         gameObject.SetActive(false);
     }
 }

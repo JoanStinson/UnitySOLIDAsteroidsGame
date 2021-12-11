@@ -9,8 +9,9 @@ public class Asteroid : LivingEntity
     [SerializeField] private float _rotationSpeed = 30f;
     [SerializeField] private float _frequency = 0.5f;
     [SerializeField] private float _magnitude = 4f;
+    [SerializeField] private bool _shouldDestroy;
 
-    private Vector3 _newPosition;
+    private Vector3? _newPosition = null;
     private bool _startMovingUp;
 
     public void Initialize(bool startMovingUp, Vector3 startPosition)
@@ -20,9 +21,8 @@ public class Asteroid : LivingEntity
         _newPosition = startPosition;
     }
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
         _newPosition = transform.position;
     }
 
@@ -32,15 +32,15 @@ public class Asteroid : LivingEntity
         _newPosition -= Vector3.right * Time.deltaTime * MoveSpeed;
         if (_startMovingUp)
         {
-            transform.position = _newPosition + (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
+            transform.position = (Vector3)(_newPosition + (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude));
         }
         else
         {
-            transform.position = _newPosition - (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
+            transform.position = (Vector3)(_newPosition - (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude));
         }
         if (transform.position.x < -9f)
         {
-            ReturnToPool();
+            ResetPosition();
         }
     }
 
@@ -51,13 +51,19 @@ public class Asteroid : LivingEntity
         {
             OnAsteroidBreak();
             SpawnDeathParticles();
-            ReturnToPool();
+            ResetPosition();
         }
     }
 
-    public void ReturnToPool()
+    private void ResetPosition()
     {
-        gameObject.SetActive(false);
-        //gameObject.transform.position = SpawnManager.GetRandomPos();
+        if (_shouldDestroy)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Initialize(false, RandomPositioner.GetRandomPos());
+        }
     }
 }

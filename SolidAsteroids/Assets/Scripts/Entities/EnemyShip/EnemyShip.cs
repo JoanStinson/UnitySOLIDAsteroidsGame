@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyShip : LivingEntity
@@ -7,7 +9,7 @@ public class EnemyShip : LivingEntity
         transform.position -= Vector3.right * MoveSpeed * Time.deltaTime;
         if (transform.position.x < -9f)
         {
-            ReturnToPool();
+            ResetPosition();
         }
     }
 
@@ -17,13 +19,15 @@ public class EnemyShip : LivingEntity
         if (Health <= 0)
         {
             SpawnDeathParticles();
-            ReturnToPool();
+            ResetPosition();
         }
     }
 
-    public void ReturnToPool()
+    private async void ResetPosition()
     {
         gameObject.SetActive(false);
-        //gameObject.transform.position = SpawnManager.GetRandomPos();
+        await Task.Delay(TimeSpan.FromSeconds(2.5f));
+        gameObject.SetActive(true);
+        gameObject.transform.position = RandomPositioner.GetRandomPos();
     }
 }

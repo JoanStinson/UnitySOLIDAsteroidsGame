@@ -22,6 +22,5 @@ public class AsteroidSplitter : MonoBehaviour
             bool startAsteroidMovingUp = (i % 2 == 0);
             spawnedAsteroidPiece.Initialize(startAsteroidMovingUp, _asteroid.transform.position);
         }
-        gameObject.SetActive(false);
     }
 }
