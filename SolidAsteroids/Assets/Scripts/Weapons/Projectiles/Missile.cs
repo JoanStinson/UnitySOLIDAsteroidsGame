@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Missile : Projectile
 {
-    [field: SerializeField] public override GameObject SpawnParticlesPrefab { get; set; }
-    [field: SerializeField] public override GameObject DeathParticlesPrefab { get; set; }
     [field: SerializeField] public override int Damage { get; set; } = 20;
     [field: SerializeField] public override float MoveSpeed { get; set; } = 15f;
 
@@ -20,12 +18,17 @@ public class Missile : Projectile
         if (_launched && _target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, _target.position, MoveSpeed * Time.deltaTime);
+
+            if (transform.position.x > 9f)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
     public IEnumerator SelfDestructAfterDelay(float delayInSeconds)
     {
         yield return new WaitForSeconds(delayInSeconds);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

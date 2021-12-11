@@ -24,6 +24,6 @@ public abstract class LivingEntity : MonoBehaviour, IMovingEntity, IHaveHealth
     public virtual void SpawnDeathParticles()
     {
         Instantiate(DeathParticlesPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

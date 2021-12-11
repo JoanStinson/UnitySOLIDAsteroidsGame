@@ -2,7 +2,7 @@
 
 public interface IMovingEntity
 {
-    GameObject DeathParticlesPrefab { get; }
+    //GameObject DeathParticlesPrefab { get; }
     float MoveSpeed { get; }
     int Damage { get; }
 

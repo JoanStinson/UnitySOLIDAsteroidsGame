@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
         }
 
         _nextFireTime = Time.time + _fireWeaponRefreshRate;
-        _launcher.Launch(this);
+        _launcher?.Launch(this);
     }
 
     private bool CanFire()

@@ -38,6 +38,10 @@ public class Asteroid : LivingEntity
         {
             transform.position = _newPosition - (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
         }
+        if (transform.position.x < -9f)
+        {
+            ReturnToPool();
+        }
     }
 
     public override void TakeDamage(int damage)
@@ -47,7 +51,13 @@ public class Asteroid : LivingEntity
         {
             OnAsteroidBreak();
             SpawnDeathParticles();
-            Destroy(gameObject);
+            ReturnToPool();
         }
+    }
+
+    public void ReturnToPool()
+    {
+        gameObject.SetActive(false);
+        //gameObject.transform.position = SpawnManager.GetRandomPos();
     }
 }

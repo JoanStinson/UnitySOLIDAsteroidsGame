@@ -4,7 +4,11 @@ public class EnemyShip : LivingEntity
 {
     private void Update()
     {
-        transform.localPosition -= Vector3.right * MoveSpeed * Time.deltaTime;
+        transform.position -= Vector3.right * MoveSpeed * Time.deltaTime;
+        if (transform.position.x < -9f)
+        {
+            ReturnToPool();
+        }
     }
 
     public override void TakeDamage(int damage)
@@ -13,7 +17,13 @@ public class EnemyShip : LivingEntity
         if (Health <= 0)
         {
             SpawnDeathParticles();
-            Destroy(gameObject);
+            ReturnToPool();
         }
+    }
+
+    public void ReturnToPool()
+    {
+        gameObject.SetActive(false);
+        //gameObject.transform.position = SpawnManager.GetRandomPos();
     }
 }
