@@ -18,7 +18,7 @@ public class PlayerDrawer : MonoBehaviour
     private const float _timeToMakePlayerVisibleAgain = 2f;
     private const float _bottomLimit = -3.343f;
     private const float _topLimit = 3.343f;
-    private const float _xAxisPosition = -6.19f;
+    private const float _xAxisStartPosition = -6.19f;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class PlayerDrawer : MonoBehaviour
         _playerHealth.OnPlayerRespawn += RespawnPlayer;
         _playerInput = GetComponent<PlayerInput>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        transform.position = new Vector3(_xAxisPosition, transform.position.y, transform.position.z);
+        transform.position = new Vector3(_xAxisStartPosition, transform.position.y, transform.position.z);
         _initialPosition = transform.position;
     }
 

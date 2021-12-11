@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class ObjectPool<T> where T : Component
+public class ObjectPrefabPool<T> where T : Component
 {
     private readonly T[] _pool;
 
-    public ObjectPool(int poolSize, GameObject prefab, string poolParentName = null)
+    public ObjectPrefabPool(int poolSize, GameObject objectPrefab, string poolParentName = null)
     {
         _pool = new T[poolSize];
         if (string.IsNullOrEmpty(poolParentName))
@@ -14,7 +14,7 @@ public class ObjectPool<T> where T : Component
         var poolParent = new GameObject(poolParentName);
         for (int i = 0; i < poolSize; ++i)
         {
-            var pooledGO = GameObject.Instantiate(prefab);
+            var pooledGO = GameObject.Instantiate(objectPrefab);
             pooledGO.name = $"Pooled {typeof(T)} {i + 1}";
             pooledGO.transform.SetParent(poolParent.transform);
             pooledGO.SetActive(false);
@@ -23,15 +23,15 @@ public class ObjectPool<T> where T : Component
         }
     }
 
-    public void Get(out T component)
+    public void Get(out T pooledObject)
     {
-        component = null;
+        pooledObject = null;
         for (int i = 0; i < _pool.Length; ++i)
         {
             if (!_pool[i].gameObject.activeSelf)
             {
-                component = _pool[i];
-                component.gameObject.SetActive(true);
+                pooledObject = _pool[i];
+                pooledObject.gameObject.SetActive(true);
                 return;
             }
         }

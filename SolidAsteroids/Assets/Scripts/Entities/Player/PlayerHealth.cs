@@ -28,7 +28,6 @@ public class PlayerHealth : LivingEntity
             Health -= damage;
             if (Health <= 0)
             {
-                //SpawnDeathParticles();
                 RespawnPlayer();
             }
         }

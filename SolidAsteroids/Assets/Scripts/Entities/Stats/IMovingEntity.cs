@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-
-public interface IMovingEntity
+﻿public interface IMovingEntity
 {
-    //GameObject DeathParticlesPrefab { get; }
     float MoveSpeed { get; }
     int Damage { get; }
 

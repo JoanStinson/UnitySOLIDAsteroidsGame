@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class EnemyShip : LivingEntity
 {
+    private const float _leftLimit = -9f;
+    private const float _resetDelayInSeconds = 2.5f;
+
     private void Update()
     {
         transform.position -= Vector3.right * MoveSpeed * Time.deltaTime;
-        if (transform.position.x < -9f)
+
+        if (transform.position.x < _leftLimit)
         {
             ResetPosition();
         }
@@ -26,7 +30,7 @@ public class EnemyShip : LivingEntity
     private async void ResetPosition()
     {
         gameObject.SetActive(false);
-        await Task.Delay(TimeSpan.FromSeconds(2.5f));
+        await Task.Delay(TimeSpan.FromSeconds(_resetDelayInSeconds));
         gameObject.SetActive(true);
         gameObject.transform.position = RandomPositioner.GetRandomPos();
     }

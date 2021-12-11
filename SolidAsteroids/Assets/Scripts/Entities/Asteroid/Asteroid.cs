@@ -9,9 +9,10 @@ public class Asteroid : LivingEntity
     [SerializeField] private float _rotationSpeed = 30f;
     [SerializeField] private float _frequency = 0.5f;
     [SerializeField] private float _magnitude = 4f;
-    [SerializeField] private bool _shouldDestroy;
+    [SerializeField] private bool _shouldBeDestroyed;
 
-    private Vector3? _newPosition = null;
+    private Vector3 _newPosition;
+    private const float _leftLimit = -9f;
     private bool _startMovingUp;
 
     public void Initialize(bool startMovingUp, Vector3 startPosition)
@@ -30,15 +31,16 @@ public class Asteroid : LivingEntity
     {
         transform.rotation *= Quaternion.Euler(0f, 0f, _rotationSpeed * Time.deltaTime);
         _newPosition -= Vector3.right * Time.deltaTime * MoveSpeed;
+
         if (_startMovingUp)
         {
-            transform.position = (Vector3)(_newPosition + (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude));
+            transform.position = _newPosition + (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
         }
         else
         {
-            transform.position = (Vector3)(_newPosition - (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude));
+            transform.position = _newPosition - (Vector3.up * Mathf.Sin(_frequency * Time.time) * _magnitude);
         }
-        if (transform.position.x < -9f)
+        if (transform.position.x < _leftLimit)
         {
             ResetPosition();
         }
@@ -57,13 +59,13 @@ public class Asteroid : LivingEntity
 
     private void ResetPosition()
     {
-        if (_shouldDestroy)
+        if (_shouldBeDestroyed)
         {
             Destroy(gameObject);
         }
         else
         {
-            Initialize(false, RandomPositioner.GetRandomPos());
+            Initialize(true, RandomPositioner.GetRandomPos());
         }
     }
 }

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public interface ILauncher
 {
-    ObjectPool<Transform> ProjectilesSpawnParticlesPool { get; }
-    ObjectPool<Transform> ProjectilesDeathParticlesPool { get; }
+    ObjectPrefabPool<Transform> ProjectilesSpawnParticlesPool { get; }
+    ObjectPrefabPool<Transform> ProjectilesDeathParticlesPool { get; }
 
     void Launch(Weapon weapon);
 }
