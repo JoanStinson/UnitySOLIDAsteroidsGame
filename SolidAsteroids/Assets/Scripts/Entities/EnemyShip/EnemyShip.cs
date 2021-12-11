@@ -1,3 +1,4 @@
+using JGM.Game.Entities.Player;
 using JGM.Game.Entities.Stats;
 using JGM.Game.Utils;
 using System;
@@ -25,6 +26,15 @@ namespace JGM.Game.Entities.EnemyShip
             if (transform.position.x < _leftLimit)
             {
                 ResetPosition();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<PlayerHealth>(out var player))
+            {
+                SpawnDeathParticles();
+                TakeDamage(player.Damage);
             }
         }
 
