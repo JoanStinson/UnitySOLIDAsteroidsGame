@@ -1,9 +1,7 @@
 using JGM.Game.Entities.Player;
 using JGM.Game.Entities.Stats;
 using JGM.Game.Utils;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 namespace JGM.Game.Entities.EnemyShip
@@ -11,21 +9,18 @@ namespace JGM.Game.Entities.EnemyShip
     public class EnemyShip : LivingEntity
     {
         private const float _leftLimit = -9f;
-        private const float _resetDelayInSeconds = 2.5f;
-        private CancellationTokenSource _tokenSource;
-
-        private void Awake()
-        {
-            _tokenSource = new CancellationTokenSource();
-        }
+        private bool _canMove = true;
 
         private void Update()
         {
+            if (!_canMove)
+            {
+                return;
+            }
             transform.position -= Vector3.right * MoveSpeed * Time.deltaTime;
-
             if (transform.position.x < _leftLimit)
             {
-                ResetPosition();
+                StartCoroutine(ResetPosition());
             }
         }
 
@@ -44,21 +39,21 @@ namespace JGM.Game.Entities.EnemyShip
             if (Health <= 0)
             {
                 SpawnDeathParticles();
-                ResetPosition();
+                StartCoroutine(ResetPosition());
             }
         }
 
-        private async void ResetPosition()
+        private IEnumerator ResetPosition()
         {
-            gameObject.SetActive(false);
-            await Task.Delay(TimeSpan.FromSeconds(_resetDelayInSeconds), _tokenSource.Token);
-            gameObject.SetActive(true);
             gameObject.transform.position = RandomPositioner.GetRandomPos();
+            _canMove = false;
+            yield return new WaitForSeconds(Random.Range(0f, 4f));
+            _canMove = true;
         }
 
         private void OnDestroy()
         {
-            _tokenSource.Cancel();
+            StopAllCoroutines();
         }
     }
 }

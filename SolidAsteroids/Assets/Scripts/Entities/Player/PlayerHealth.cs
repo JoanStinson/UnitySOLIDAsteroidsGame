@@ -48,5 +48,10 @@ namespace JGM.Game.Entities.Player
             yield return new WaitForSeconds(delayInSeconds);
             _isInvulnerable = false;
         }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
     }
 }

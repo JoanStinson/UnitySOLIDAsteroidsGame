@@ -38,5 +38,10 @@ namespace JGM.Game.Pool
                 }
             }
         }
+
+        public ref readonly T[] GetPool()
+        {
+            return ref _pool;
+        }
     }
 }

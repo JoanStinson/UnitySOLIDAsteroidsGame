@@ -5,12 +5,13 @@ namespace JGM.Game.Entities.Player
     [RequireComponent(typeof(PlayerHealth))]
     public class PlayerParticles : MonoBehaviour
     {
-        [SerializeField]
         private GameObject _deathParticlesPrefab;
 
         private void Awake()
         {
-            GetComponent<PlayerHealth>().OnPlayerRespawn += SpawnDeathParticles;
+            var playerHealth = GetComponent<PlayerHealth>();
+            playerHealth.OnPlayerRespawn += SpawnDeathParticles;
+            _deathParticlesPrefab = playerHealth.DeathParticlesPrefab;
         }
 
         private void SpawnDeathParticles()

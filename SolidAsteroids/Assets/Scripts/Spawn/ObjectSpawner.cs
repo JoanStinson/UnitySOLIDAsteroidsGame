@@ -1,7 +1,5 @@
 using JGM.Game.Utils;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 namespace JGM.Game.Spawn
@@ -14,11 +12,8 @@ namespace JGM.Game.Spawn
 
         private GameObject[] _objects;
 
-        private CancellationTokenSource _tokenSource;
-
-        private async void Awake()
+        private IEnumerator Start()
         {
-            _tokenSource = new CancellationTokenSource();
             var spawnParent = new GameObject($"{_objectPrefab.name}Spawns");
             _objects = new GameObject[_maxSpawn];
             for (int i = 0; i < _maxSpawn; ++i)
@@ -27,13 +22,13 @@ namespace JGM.Game.Spawn
                 spawnedObject.transform.SetParent(spawnParent.transform);
                 spawnedObject.transform.position = RandomPositioner.GetRandomPos();
                 _objects[i] = spawnedObject;
-                await Task.Delay(TimeSpan.FromSeconds(_delayBetweenSpawnsInSeconds), _tokenSource.Token);
+                yield return new WaitForSeconds(_delayBetweenSpawnsInSeconds);
             }
         }
 
         private void OnDestroy()
         {
-            _tokenSource.Cancel();
+            StopAllCoroutines();
         }
     }
 }

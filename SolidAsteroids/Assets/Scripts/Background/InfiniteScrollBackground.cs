@@ -10,7 +10,7 @@ namespace JGM.Game.Background
         private float _rightEdge;
         private float _leftEdge;
 
-        private void Start()
+        private void Awake()
         {
             float width = GetComponent<RectTransform>().rect.width;
             _rightEdge = width - 2;

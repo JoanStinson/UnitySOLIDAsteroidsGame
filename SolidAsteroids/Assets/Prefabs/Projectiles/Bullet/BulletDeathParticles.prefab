@@ -225,4 +225,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e651b7726af95a44af2baf7e6678546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 4131150302386178254}
   _spriteRenderer: {fileID: 6427354505715047143}

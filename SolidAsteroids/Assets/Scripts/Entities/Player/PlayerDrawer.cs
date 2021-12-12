@@ -74,5 +74,10 @@ namespace JGM.Game.Entities.Player
             yield return new WaitForSeconds(2.75f);
             _animator.Play("Idle");
         }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
     }
 }
