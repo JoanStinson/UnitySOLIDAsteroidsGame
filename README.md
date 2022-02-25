@@ -21,7 +21,7 @@ A mini space game made applying all SOLID Principles to serve as a reference of 
 A class should have only one responsibility.
 
 <details>
- <summary>❌ Wrong Way</summary>
+ <summary><b>❌ Wrong Way</b></summary>
   
  ```csharp
  [RequireComponent(typeof(Collider2D))]
@@ -119,7 +119,7 @@ A class should have only one responsibility.
 </details>
 
 <details>
- <summary>✔️ Right Way</summary>
+ <summary><b>✔️ Right Way</b></summary>
   
  ```csharp
  [RequireComponent(typeof(PlayerHealth))]
@@ -295,7 +295,7 @@ A class should have only one responsibility.
 A software module (it can be a class or method) should be open for extension but closed for modification.
 
 <details>
- <summary>❌ Wrong Way</summary>
+ <summary><b>❌ Wrong Way</b></summary>
 
  ```csharp
  [RequireComponent(typeof(PlayerInput))]
@@ -344,7 +344,7 @@ A software module (it can be a class or method) should be open for extension but
 </details>
  
 <details>
- <summary>✔️ Right Way</summary>
+ <summary><b>✔️ Right Way</b></summary>
   
  ```csharp
  [RequireComponent(typeof(ILauncher))]
@@ -422,7 +422,7 @@ A software module (it can be a class or method) should be open for extension but
 Derived classes must be substitutable for their base classes.
 
 <details>
- <summary>❌ Wrong Way</summary>
+ <summary><b>❌ Wrong Way</b></summary>
  
  ```csharp
  [RequireComponent(typeof(Collider2D))]
@@ -446,7 +446,7 @@ Derived classes must be substitutable for their base classes.
 </details>
  
 <details>
- <summary>✔️ Right Way</summary>
+ <summary><b>✔️ Right Way</b></summary>
   
  ```csharp
  [RequireComponent(typeof(Collider2D))]
@@ -520,7 +520,7 @@ Derived classes must be substitutable for their base classes.
 Clients should not be forced to depend upon the interfaces that they do not use.
 
 <details>
- <summary>❌ Wrong Way</summary>
+ <summary><b>❌ Wrong Way</b></summary>
  
  ```csharp
  public interface IEntity
@@ -567,7 +567,7 @@ Clients should not be forced to depend upon the interfaces that they do not use.
 </details>
 
 <details>
- <summary>✔️ Right Way</summary>
+ <summary><b>✔️ Right Way</b></summary>
   
  ```csharp
  public interface IMovingEntity
@@ -638,7 +638,7 @@ Clients should not be forced to depend upon the interfaces that they do not use.
 Program to an interface, not to an implementation.
  
 <details>
- <summary>❌ Wrong Way</summary>
+ <summary><b>❌ Wrong Way</b></summary>
  
  ```csharp
  [RequireComponent(typeof(UserInput))]
@@ -670,7 +670,7 @@ Program to an interface, not to an implementation.
 </details>
 
 <details>
- <summary>✔️ Right Way</summary>
+ <summary><b>✔️ Right Way</b></summary>
   
  ```csharp
  [RequireComponent(typeof(UserInput))]
